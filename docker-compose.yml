@@ -1,0 +1,16 @@
+version: "3.1"
+services:
+  peppermint:
+    image: pepperlabs/peppermint:latest
+    ports:
+      - 3000:3000
+      - 5003:5003
+    restart: always
+    environment:
+      DB_USERNAME: ${PGUSER}
+      DB_PASSWORD: ${PGPASSWORD}
+      DB_HOST: ${PGHOST}
+      DB_PORT: ${PGPORT}
+      DB_NAME: ${PGDATABASE}
+      SECRET: ${PEPPERMINT_SECRET}
+      API_URL: ${PEPPERMINT_API_URL}
