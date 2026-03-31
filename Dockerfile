@@ -1,0 +1,1 @@
+FROM pepperlabs/peppermint:latest
