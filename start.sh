@@ -1,13 +1,10 @@
 #!/bin/sh
 
-# Find the ecosystem config
-echo "=== Searching for ecosystem.config.js ==="
-find / -name "ecosystem.config.js" 2>/dev/null
+# Patch Next.js to bind on 0.0.0.0 so Railway's proxy can reach it
+sed -i "s/'start'/'start -H 0.0.0.0'/g" /ecosystem.config.js
+sed -i 's/"start"/"start -H 0.0.0.0"/g' /ecosystem.config.js
 
-echo "=== /app contents ==="
-ls /app 2>/dev/null || echo "no /app"
+echo "=== Patched ecosystem.config.js ==="
+cat /ecosystem.config.js
 
-echo "=== / contents ==="
-ls /
-
-# Don't start PM2 yet — just show us the file structure
+exec pm2-runtime start /ecosystem.config.js
